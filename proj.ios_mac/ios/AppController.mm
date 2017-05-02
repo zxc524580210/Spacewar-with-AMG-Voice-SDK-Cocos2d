@@ -30,6 +30,9 @@
 
 #import <AgoraAudioKit/AgoraRtcEngineKitForGaming.h>
 
+#include "../../AgoraGamingSDK/include/AgoraGamingRtcHelper.h"
+#include "../../AgoraGamingSDK/include/IAgoraRtcEngineForGaming.h"
+
 @implementation AppController
 
 @synthesize window;
@@ -97,6 +100,8 @@ static NSString *appId = <#Your App Id#>;
      */
     // We don't need to call this method any more. It will interrupt user defined game pause&resume logic
     /* cocos2d::Director::getInstance()->pause(); */
+    auto rtcEngine = AgoraRtcEngineForGaming_getInstance();
+    rtcEngine->pause();
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -105,6 +110,8 @@ static NSString *appId = <#Your App Id#>;
      */
     // We don't need to call this method any more. It will interrupt user defined game pause&resume logic
     /* cocos2d::Director::getInstance()->resume(); */
+    auto rtcEngine = AgoraRtcEngineForGaming_getInstance();
+    rtcEngine->resume();
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
