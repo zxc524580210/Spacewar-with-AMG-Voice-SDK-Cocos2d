@@ -628,8 +628,12 @@ bool MainGame::onContactBegan(PhysicsContact &contact) {
     auto nodeA = contact.getShapeA()->getBody()->getNode();
     auto nodeB = contact.getShapeB()->getBody()->getNode();
 
-    nodeA->removeFromParent();
-    nodeB->removeFromParent();
+    if (nodeA != nullptr) {
+        nodeA->removeFromParent();
+    }
+    if (nodeB != nullptr) {
+        nodeB->removeFromParent();
+    }
     return true;
 }
 
