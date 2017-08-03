@@ -22,16 +22,10 @@ Agora Gaming SDK supports iOS / Android / Unity / Cocos2d. You can find demos of
 - [Spacewar-with-AMG-Voice-SDK-Unity](https://github.com/AgoraIO/Spacewar-with-AMG-Voice-SDK-Unity)
 
 ## Running the App
-First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. If you are going to runing Android project，update "proj.android-studio/app/src/org/cocos2dx/cpp/AGApplication.java"
+First, create a developer account at [Agora.io](https://dashboard.agora.io/signin/), and obtain an App ID. Update "Classes/SceneMgr.h" with your App ID.
 
 ```
-private static final String appId = <#YOUR APP ID#>;
-```
-
-For iOS project，update "proj.ios_mac/ios/AppController.mm"
-
-```
-static NSString *appId = <#Your App Id#>;
+#define AGORA_APP_ID <#YOUR APP ID#>
 ```
 
 Next, download the **Agora Gaming SDK** from [Agora.io SDK](https://www.agora.io/en/download/). Unzip the downloaded SDK package and copy **include** and **libs** to **AgoraGamingSDK**.
@@ -52,8 +46,8 @@ Or use `Gradle` to build and run.
 Open project with Xcode, connect your iOS device, build and run.
 
 ## Developer Environment Requirements
-- Android Studio 2.0 +/Xcode 8.0 +
-- Real Android/iOS devices (Nexus 5X or other devices)
+- Android Studio 2.0+ / Xcode 8.0+
+- Real Android / iOS devices(Nexus 5X or other devices)
 - Some simulators are function missing or have performance issue, so real device is the best choice
 
 ## Connect Us

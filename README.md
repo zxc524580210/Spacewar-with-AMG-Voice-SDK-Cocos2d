@@ -22,17 +22,12 @@ Agora 游戏 SDK 支持 iOS / Android / Unity / Cocos2d 等多个平台，你可
 - [Spacewar-with-AMG-Voice-SDK-Unity](https://github.com/AgoraIO/Spacewar-with-AMG-Voice-SDK-Unity)
 
 ## 运行示例程序
-首先在 [Agora.io 注册](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 AppID。如果要运行 Android 项目的话，将 AppID 填写进 "proj.android-studio/app/src/org/cocos2dx/cpp/AGApplication.java"
+首先在 [Agora.io 注册](https://dashboard.agora.io/cn/signup/) 注册账号，并创建自己的测试项目，获取到 AppID。将 AppID 填写进 "Classes/SceneMgr.h"
 
 ```
-private static final String appId = <#YOUR APP ID#>;
+#define AGORA_APP_ID <#YOUR APP ID#>
 ```
 
-如果要运行 iOS 项目的话，将 AppID 填写进 "proj.ios_mac/ios/AppController.mm"
-
-```
-static NSString *appId = <#Your App Id#>;
-```
 
 然后在 [Agora.io SDK](https://www.agora.io/cn/download/) 下载 **Agora 游戏语音 SDK for Cocos2d**，解压后将其中的 **include** 和 **libs** 文件夹复制到本项目的 **AgoraGamingSDK** 下。
 
@@ -52,8 +47,8 @@ static NSString *appId = <#Your App Id#>;
 使用 Xcode 打开项目直接编译运行。
 
 ## 运行环境
-- Android Studio 2.0 + 或 Xcode 8.0 +
-- 真实 Android/iOS 设备 (Nexus 5X 或者其它设备)
+- Android Studio 2.0+ 或 Xcode 8.0+
+- 真实 Android / iOS 设备(Nexus 5X 或者其它设备)
 - 部分模拟器会存在功能缺失或者性能问题，所以推荐使用真机
 
 ## 联系我们
