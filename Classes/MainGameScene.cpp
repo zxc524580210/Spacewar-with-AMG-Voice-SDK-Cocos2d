@@ -317,8 +317,15 @@ void MainGame::onAudioEnableBtnClicked(ui::Button* btn)
         AgoraRtcEngineForGaming_getInstance(AGORA_APP_ID)->getAudioEffectManager()->preloadEffect(1, file.c_str());
     } else {
         rtcEngine->leaveChannel();
+        
         SceneMgr::getInstance()->config.ts = 0;
-
+        SceneMgr::getInstance()->config.muted = false;
+        SceneMgr::getInstance()->config.useMixing = false;
+        SceneMgr::getInstance()->config.mLocalPitch = 1.0;
+        SceneMgr::getInstance()->config.mVoiceVolume = 100;
+        SceneMgr::getInstance()->config.mMixingVolume = 100;
+        SceneMgr::getInstance()->config.mEffectVolume = 100;
+        
         doPlayBackgroundMusic(SceneMgr::getInstance()->config.useMixing);
     }
 }
