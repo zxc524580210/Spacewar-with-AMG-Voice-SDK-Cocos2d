@@ -47,6 +47,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile fileTree(include: ['*.jar'], dir: '../../AgoraGamingSDK/libs/Android')
     compile project(':libcocos2dx')
+    compile 'com.android.support:appcompat-v7:26.1.0'
 }
 
 task cleanAssets(type: Delete) {
