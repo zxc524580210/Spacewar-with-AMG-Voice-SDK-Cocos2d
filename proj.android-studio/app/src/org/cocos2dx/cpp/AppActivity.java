@@ -23,60 +23,63 @@
  ****************************************************************************/
 package org.cocos2dx.cpp;
 
-        import android.Manifest;
-        import android.content.pm.PackageManager;
+import android.Manifest;
+import android.content.pm.PackageManager;
 
-        import org.cocos2dx.lib.Cocos2dxActivity;
+import org.cocos2dx.lib.Cocos2dxActivity;
 
-        import android.os.Bundle;
-        import android.support.annotation.NonNull;
-        import android.support.v4.app.ActivityCompat;
-        import android.support.v4.content.ContextCompat;
-
-        import java.util.ArrayList;
-        import java.util.List;
-
-        import javax.xml.validation.Validator;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 public class AppActivity extends Cocos2dxActivity {
     static {
         System.loadLibrary("agoraSdkCWrapper");
     }
 
+    private final static int REQUEST_CODE = 200;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkSelfPermission(new String[]{
-                Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-        }, 200);
-    }
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED)) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{
+                                Manifest.permission.RECORD_AUDIO,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        }, REQUEST_CODE);
 
-    public void checkSelfPermission(String[] permissions, int requestCode) {
-        List<String> temp = new ArrayList<>();
-        for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED)
-                temp.add(permission);
+            }else{
+                ActivityCompat.requestPermissions(this,
+                        new String[]{
+                                Manifest.permission.RECORD_AUDIO
+                        }, REQUEST_CODE);
+            }
         }
-
-        if (ContextCompat.checkSelfPermission(this,
-                String.valueOf(temp.toArray()))
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    permissions,
-                    requestCode);
+        else if(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        }, REQUEST_CODE);
+            }
         }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        for (int val : grantResults){
-            if (val != PackageManager.PERMISSION_GRANTED) {
-                System.exit(0);
+        if (requestCode == REQUEST_CODE) {
+            if (grantResults.length == 2 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Record， WRITE_EXTERNAL_STORAGE not Permitted !", Toast.LENGTH_SHORT).show();
             }
+            else if(grantResults.length == 1 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this,  permissions[0] + "not Permitted !", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-
 }
